@@ -23,8 +23,8 @@ public class MerchantStockController {
         return (new ApiResponse(" these All merchant Stock :" + "  "
                 + merchantStockService.getMerchantStock()));
     }
-    @PostMapping("/merchant-stocks")
-    public ResponseEntity<MerchantStock> addProductToMerchantStock(@RequestParam String productId, @RequestParam String merchantId, @RequestParam int stock) {
+    @PostMapping("/merchant-stocks/Product/{productId}/merchant{merchantId}/stock/{stock}")
+    public ResponseEntity<MerchantStock> addProductToMerchantStock(@PathVariable @Valid String productId, @Valid@PathVariable String merchantId,@Valid @PathVariable int stock) {
         merchantStockService.addProductToMerchantStock(productId, merchantId, stock);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

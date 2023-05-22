@@ -36,13 +36,24 @@ public class MerchantStockService {
         if (product == null || merchant == null) {
            System.out.println("Invalid product or merchant ID");
         }
-
-        // add the product to the merchant stock with the given stock quantity
-        MerchantStock merchantStock = new MerchantStock("78","9","99",9);
-        merchantStock.setProductId(productId);
-        merchantStock.setMerchantId(merchantId);
+        // retrieve the merchant stock for the product and merchant
+        MerchantStock merchantStock = null;
+        for (MerchantStock stockItem : merchantStocks) {
+            if (stockItem.getProductId().equals(productId) && stockItem.getMerchantId().equals(merchantId)) {
+                merchantStock = stockItem;
+                break;
+            }
+        }
+        // if the merchant stock doesn't exist, create a new one
+        if (merchantStock == null) {
+            merchantStock = new MerchantStock("1","1","1",11);
+            merchantStock.setProductId(productId);
+            merchantStock.setMerchantId(merchantId);
+            merchantStocks.add(merchantStock);
+        }
+        // update the stock quantity for the merchant stock
         merchantStock.setStock(stock);
-        merchantStocks.add(merchantStock);
+
     }
 
     public MerchantStock updateMerchantStock(String id, MerchantStock merchantStock) {
